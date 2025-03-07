@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/*https://tailwindcss.com/docs/installation/using-vite*/
+/*https://lucide.dev/guide/installation*/
+/*https://reactrouter.com/start/library/installation*/
+
+
+@theme {
+  --color-fundo-container:  #d7e4f7; 
+  --color-fundo-titulo:  white; 
+}
