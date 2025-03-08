@@ -39,15 +39,18 @@ function Header({ titulo})
                     <h4 className=''>{titulo}</h4>
             </div>
 
-            <Dropdown className="dropdown-botao">
-            <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">
-                <EllipsisVertical />
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu className="custom-menu">
-                <Dropdown.Item href="#/action-1"><Plus/> Cadastrar</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+            {!isMenuRoute && (
+                      <Dropdown className="dropdown-botao">
+                      <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">
+                          <EllipsisVertical />
+                      </Dropdown.Toggle>
+      
+                      <Dropdown.Menu className="custom-menu">
+                          <Dropdown.Item href="#/action-1"><Plus/> Cadastrar</Dropdown.Item>
+                      </Dropdown.Menu>
+                  </Dropdown>
+                )}
+          
         </div>
 
     );
