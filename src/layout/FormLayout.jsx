@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import Input from "../components/Input";
 import { useState } from "react";
 
-export function AcaoLayout () 
+export function FormLayout () 
 {
     const [serachParams] = useSearchParams();
     const titulo = serachParams.get('titulo')

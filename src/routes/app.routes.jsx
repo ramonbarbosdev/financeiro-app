@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import {  MenuLayout } from "../layout/MenuLayout";
-import ContaPage from "../pages/ContaPage";
-import { AcaoLayout } from "../layout/AcaoLayout";
+import { ListLayout } from "../layout/ListLayout";
+import { ContaList } from "../pages/ContaList";
 
 export function AppRoutes () 
 {
@@ -10,8 +10,8 @@ export function AppRoutes ()
             <Route element={<MenuLayout/>} path="/menu">
                     <Route index element={<MenuLayout />} />
             </Route>
-            <Route element={<AcaoLayout/>} path="/conta">
-                    <Route index element={<AcaoLayout />} />
+            <Route element={<ContaList/>} path="/conta">
+                    <Route index element={<ListLayout />} />
             </Route>
      
         </Routes>

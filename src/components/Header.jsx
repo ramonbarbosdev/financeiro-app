@@ -1,10 +1,10 @@
 import { ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 function Header({ titulo}) 
 {
     const navigate = useNavigate();
-
+    const location = useLocation();
 
     function redirection(router)
     {
@@ -13,15 +13,20 @@ function Header({ titulo})
         navigate(`/${router}?${query}`)
     }
 
+    const isMenuRoute = location.pathname === "/menu";
+
     return(
-        <div className="flex gap-3  w-full   "> 
-            <div>
-                <button  onClick={() => redirection("menu")} className="bg-blue-500 text-white p-2 rounded-md">
-                        <ArrowLeft/>
-                </button>
+        <div className="container-header "> 
+
+            <div className="container-botao-header">
+                {!isMenuRoute && (
+                    <button onClick={() => redirection("menu")} className="botao-header">
+                        <ArrowLeft />
+                    </button>
+                )}
             </div>
 
-            <div className='w-full flex justify-center items-center  text-black'>
+            <div className='container-header-titulo'>
                     <h4 className=''>{titulo}</h4>
             </div>
         </div>

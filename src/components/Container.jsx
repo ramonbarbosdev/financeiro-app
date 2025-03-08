@@ -1,10 +1,10 @@
 
-function Container({ children, width = 'w-1/4', height = 'h-1/2' }) 
+function Container({ children}) 
 {
 
 
     return(
-        <div className={`bg-white p-4 rounded-lg shadow-lg ${width} ${height} flex flex-col gap-10 items-center`}>
+        <div className={'container'}>
            
             {children} 
 

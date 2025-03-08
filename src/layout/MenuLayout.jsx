@@ -1,8 +1,10 @@
-import { Outlet, useNavigate } from "react-router";
-import Container from "../components/Container";
-import { ArrowLeft } from "lucide-react";
-import ContainerMain from "../components/ContainerMain";
+import { useNavigate } from "react-router";
 import ButtonCustom from "../components/ButtonCustom";
+import ContainerMain from "../components/ContainerMain";
+import Container from "../components/Container";
+import Header from "../components/Header";
+
+import '../css/menulayout.css'
 
 export function MenuLayout () 
 {
@@ -18,18 +20,21 @@ export function MenuLayout ()
 
     return (
         <ContainerMain>
-            <Container>
+         
+        <Container>
+        
+            <Header titulo="Menu"></Header>
 
-                <div className=' space-x-4 flex justify-center'>
-                        <h4 className='text-black'>Menu</h4>
-                </div>
+    
 
-                <div className='flex flex-col space-x-4'>
-                    <ButtonCustom onClick={()=> {redirection("conta", "Conta")}}> Conta </ButtonCustom>
+                <div className='container-botao-menu'>
+                <ButtonCustom onClick={()=> {redirection("conta", "Conta")}}> Conta </ButtonCustom>
+                <ButtonCustom onClick={()=> {redirection("conta", "Conta")}}> Conta </ButtonCustom>
                 </div>
-               
-                {/* <Outlet /> */}
+ 
             </Container>
         </ContainerMain>
+     
+        
     );
 }

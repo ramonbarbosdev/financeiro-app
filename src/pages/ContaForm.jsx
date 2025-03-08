@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router";
 import Container from "../components/Container";
 import ContainerMain from "../components/ContainerMain";
 
-function ContaPage({})
+function ContaForm({})
 {
     const [serachParams] = useSearchParams();
 
@@ -19,4 +19,4 @@ function ContaPage({})
     );
 }
 
-export default ContaPage;
+export default ContaForm;
