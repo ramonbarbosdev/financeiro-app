@@ -8,7 +8,7 @@ import Container from './components/Container'
 import ContainerMain from './components/ContainerMain'
 import { MenuLayout } from './layout/MenuLayout'
 import './css/index.css'
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 

@@ -14,7 +14,7 @@ export function ListLayout ({titulo,endpoint,renderItem, children})
 
     useEffect(() => {
          const obterContas = async () => {
-             const dadosAPI = await fetchDados();
+             const dadosAPI = await fetchDados(endpoint);
              setData(dadosAPI);
          };
  
