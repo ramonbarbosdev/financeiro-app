@@ -23,6 +23,7 @@ function Header({ titulo, pathform})
 
     const isMenuRoute = location.pathname === "/menu";
 
+    const isFormRoute = location.pathname.endsWith("/form");
  
     return(
         <div className="container-header "> 
@@ -34,12 +35,24 @@ function Header({ titulo, pathform})
                     </button>
                 )}
             </div>
-
+           
             <div className='container-header-titulo'>
-                    <h4 className=''>{titulo}</h4>
+                {
+                    !isMenuRoute ?
+                    (
+                        isFormRoute ? (   <h4 className=''>Cadastro de {titulo}</h4> ) 
+                        : (  <h4 className=''>Listagem de {titulo}</h4>)
+                    ) 
+                    :
+                    (
+                        <h4 className=''>{titulo}</h4>
+                    )
+
+                   
+                }
             </div>
 
-            {!isMenuRoute && (
+            {!isMenuRoute && !isFormRoute &&  (
                       <Dropdown className="dropdown-botao">
                       <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">
                           <EllipsisVertical />
@@ -51,7 +64,8 @@ function Header({ titulo, pathform})
                             </Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>
-                )}
+            )}
+
           
         </div>
 

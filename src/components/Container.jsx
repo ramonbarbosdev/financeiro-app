@@ -4,7 +4,7 @@ function Container({ children})
 
 
     return(
-        <div className={'container'}>
+        <div className={'container-base'}>
            
             {children} 
 

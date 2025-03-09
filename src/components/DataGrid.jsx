@@ -8,7 +8,7 @@ import styled from 'styled-components';
 export function DataGrid({ data = [], columns = [] }) {
 
   return (
-    <Table striped bordered hover>
+    <Table striped bordered hover className='table'>
       <thead>
         <tr>
         {columns.map((col, index) => (

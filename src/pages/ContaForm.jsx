@@ -4,14 +4,14 @@ import ContainerMain from "../components/ContainerMain";
 
 function ContaForm({})
 {
-    const [serachParams] = useSearchParams();
 
-    const titulo = serachParams.get('titulo')
 
     return(
-        <h1 style={"color: black"}>Cadastro</h1>
-        
-       
+    
+        <div>
+                
+        </div>
+         
     );
 }
 

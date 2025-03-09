@@ -16,13 +16,16 @@
     color:black;
     width: 100vw;
     height: 100vh;
-   
+    margin: 0;
   }
 
-  .container{
-    width: 40%;
-    min-height:40%;
+  .container-base{
+    min-width: 50%;
+    min-height: 40%;
     background-color: white;
     border-radius: 12px;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adicione uma sombra para destaque */
   }
+
+  

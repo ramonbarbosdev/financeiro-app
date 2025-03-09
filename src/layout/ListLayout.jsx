@@ -23,7 +23,7 @@ export function ListLayout ({titulo, endpoint})
      }, []);
 
 
-    const propsToPass = {  data};
+    const propsToPass = {  data, endpoint};
 
     return (
         <ContainerMain>

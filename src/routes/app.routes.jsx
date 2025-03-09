@@ -8,15 +8,17 @@ export function AppRoutes ()
 {
     return (
         <Routes>
-        {/* Rota para o Menu */}
+      
         <Route path="/menu" element={<MenuLayout />}>
             <Route index element={<h2>Bem-vindo ao Menu!</h2>} /> {/* Rota padrão para /menu */}
-            {/* Você pode adicionar mais rotas aqui, se necessário */}
+     
         </Route>
         <Route path="/conta" element={<ListLayout titulo={"Contas"} endpoint={"/conta/"} />}>
             <Route index element={<ContaList />} /> {/* Rota padrão para /conta */}
+            <Route path="/conta/form" element={<ContaForm />} />
         </Route>
-        <Route path="/conta/form" element={<ContaForm />} />
+
+
     </Routes>
     );
 }
