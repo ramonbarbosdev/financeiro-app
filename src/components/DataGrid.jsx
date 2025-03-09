@@ -1,41 +1,31 @@
 // src/components/DataGrid.js
 import React from 'react';
+import { Table } from 'react-bootstrap';
 import styled from 'styled-components';
 
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  color: black;
-`;
 
-const TableHeader = styled.th`
-  background-color: #f2f2f2;
-  padding: 10px;
-  text-align: left;
-`;
 
-const TableCell = styled.td`
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
+export function DataGrid({ data = [], columns = [] }) {
 
-`;
-
-export { TableCell };
-
-export function DataGrid({ data, renderItem }) {
   return (
-
-    
-    <Table >
+    <Table striped bordered hover>
       <thead>
-        <tr >
-          <TableHeader>Codigo</TableHeader>
-          <TableHeader>Nome</TableHeader>
-          {/* Adicione mais cabeçalhos conforme necessário */}
+        <tr>
+        {columns.map((col, index) => (
+                        <th key={index}>{col.header}</th>
+                    ))}
         </tr>
       </thead>
       <tbody>
-        {data.map(renderItem)} {/* Renderiza os itens usando a função renderItem */}
+      {data.map((item, rowIndex) => (
+                    <tr key={rowIndex}>
+                        {columns.map((col, colIndex) => (
+                            <td key={colIndex}>
+                                {col.accessor ? col.accessor(item) : item[col.key]}
+                            </td>
+                        ))}
+                    </tr>
+                ))}
       </tbody>
     </Table>
   );

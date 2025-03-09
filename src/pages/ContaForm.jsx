@@ -9,12 +9,8 @@ function ContaForm({})
     const titulo = serachParams.get('titulo')
 
     return(
-
-         <ContainerMain>
-            <Container  width='w-1/2'>
-                <h1>{titulo}</h1>
-            </Container>
-         </ContainerMain>
+        <h1 style={"color: black"}>Cadastro</h1>
+        
        
     );
 }

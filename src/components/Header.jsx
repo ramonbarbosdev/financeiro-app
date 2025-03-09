@@ -7,29 +7,29 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
-function Header({ titulo}) 
+function Header({ titulo, pathform}) 
 {
     const navigate = useNavigate();
     const location = useLocation();
     const [dropdownOpen, setDropdownOpen] = useState(false); 
 
-    function redirection(router)
+    function redirection(path)
     {
         const query = new URLSearchParams();
         // query.set("descricao", tasks.descricao);
-        navigate(`/${router}?${query}`)
+        // navigate(`/${path}?${query}`)
+        navigate(path);
     }
 
     const isMenuRoute = location.pathname === "/menu";
 
-
-
+ 
     return(
         <div className="container-header "> 
 
             <div className="container-botao-header">
                 {!isMenuRoute && (
-                    <button onClick={() => redirection("menu")} className="botao-header">
+                    <button onClick={() => navigate(-1)} className="botao-header">
                         <ArrowLeft />
                     </button>
                 )}
@@ -46,7 +46,9 @@ function Header({ titulo})
                       </Dropdown.Toggle>
       
                       <Dropdown.Menu className="custom-menu">
-                          <Dropdown.Item href="#/action-1"><Plus/> Cadastrar</Dropdown.Item>
+                        <Dropdown.Item onClick={() => redirection(`${pathform}`)}>
+                                <Plus /> Cadastrar
+                            </Dropdown.Item>
                       </Dropdown.Menu>
                   </Dropdown>
                 )}

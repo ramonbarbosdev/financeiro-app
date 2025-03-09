@@ -10,12 +10,12 @@ export function MenuLayout ()
 {
     const navigate = useNavigate();
 
-    function redirection(router, titulo)
+    function redirection(path)
     {
-        const query = new URLSearchParams();
-        query.set("titulo", titulo);
-
-        navigate(`/${router}?${query}`)
+        // const query = new URLSearchParams();
+        // query.set("titulo", titulo);
+        // console.log()
+        navigate(`${path}`)
     }
 
     return (
@@ -28,8 +28,7 @@ export function MenuLayout ()
     
 
                 <div className='container-botao-menu'>
-                <ButtonCustom onClick={()=> {redirection("conta", "Conta")}}> Conta </ButtonCustom>
-                <ButtonCustom onClick={()=> {redirection("conta", "Conta")}}> Conta </ButtonCustom>
+                <ButtonCustom onClick={()=> {redirection("/conta")}}> Conta </ButtonCustom>
                 </div>
  
             </Container>

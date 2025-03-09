@@ -1,28 +1,25 @@
+import { useOutletContext } from "react-router";
+import { DataGrid } from "../components/DataGrid";
 import { useEffect, useState } from "react";
-import Header from "../components/Header";
-import { ListLayout } from "../layout/ListLayout";
-import { TableCell } from "../components/DataGrid";
 
 export function ContaList()
 {
 
-    
-    const renderObjeto = (objeto) => (
-        <tr  key={objeto.id_conta}>
-          <TableCell> {objeto.id_conta}</TableCell>  
-          <TableCell> {objeto.nm_conta}</TableCell>  
-        </tr>          
-      );
+    const { data} =useOutletContext()
 
+    const columns = [
+      { header: 'Identificador', key: 'id_conta' },
+      { header: 'Nome', key: 'nm_conta' },
+      // { header: 'Saldo', accessor: item => item.saldo.toFixed(2) }, 
+  ];
 
     return (
-       <ListLayout
-            titulo="Lista de Contas"
-            endpoint={"/conta/"}
-            renderItem={renderObjeto} // Passa a função de renderização
-        >
+      <div>
 
-          
-       </ListLayout>
+        <DataGrid data={data} columns={columns}/>
+
+
+
+      </div>
     );
 }

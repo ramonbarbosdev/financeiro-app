@@ -4,9 +4,10 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { fetchDados } from "../api/api";
 import { DataGrid } from "../components/DataGrid";
+import { Outlet } from "react-router";
 
 
-export function ListLayout ({titulo,endpoint,renderItem, children}) 
+export function ListLayout ({titulo, endpoint}) 
 {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,20 +22,17 @@ export function ListLayout ({titulo,endpoint,renderItem, children})
          obterContas();
      }, []);
 
+
+    const propsToPass = {  data};
+
     return (
         <ContainerMain>
             <Container >
 
-                <Header titulo={titulo}/>
-                 
-                <div   >
-                  <DataGrid data={data} renderItem={renderItem} />
-                </div>
-              
-
-                    {children}
-              
-                {/* <Outlet /> */}
+                <Header titulo={titulo} pathform={`${endpoint}form` }/>
+                  
+               
+                <Outlet context={propsToPass} />
             </Container>
         </ContainerMain>
     );
