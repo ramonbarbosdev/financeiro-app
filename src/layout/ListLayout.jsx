@@ -5,22 +5,17 @@ import { useEffect, useState } from "react";
 import { fetchDados } from "../api/api";
 import { DataGrid } from "../components/DataGrid";
 import { Outlet } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 
 export function ListLayout ({titulo, endpoint}) 
 {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
 
-    useEffect(() => {
-         const obterContas = async () => {
-             const dadosAPI = await fetchDados(endpoint);
-             setData(dadosAPI);
-         };
- 
-         obterContas();
-     }, []);
+    
+    const { data: data, error, isLoading } = useQuery({
+        queryKey: ['conta'],
+        queryFn: () => fetchDados('/conta/'),
+      });
 
 
     const propsToPass = {  data, endpoint};
