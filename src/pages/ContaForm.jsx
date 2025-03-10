@@ -2,23 +2,34 @@ import { Form } from "react-bootstrap";
 import { fetchDados, criarItem } from "../api/api"; // Certifique-se de que a função criarItem está definida
 import { useQuery } from '@tanstack/react-query';
 import { Button } from 'react-bootstrap';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { erroEspecifico } from "../errorHandler";
 
 function ContaForm() {
 
-    //exibir tipo conta
+   
     const [message, setMessage] = useState(""); 
 
-    const { data: dadosTipoConta, error, isLoading } = useQuery({
-        queryKey: ['tiposConta'],
-        queryFn: () => fetchDados('/tipoconta/'),
-    });
+    //exibir tipo conta
+    const [dataTipoConta, setDataTipoConta] = useState([]);
+    
+        useEffect(() => {
+            const fetchData = async () => {
+                const resposta = await fetchDados("/tipoconta/");
 
-    // console.log(error);
-    // if(error)
-    // {
-    // }
+                if(!erroEspecifico(resposta))
+                {
+                    setDataTipoConta(resposta); 
+                }
+                else
+                {
+                    setMessage(erroEspecifico(resposta));
+                }
+            };
+    
+            fetchData(); 
+        }, []); 
+    
     
     //salvar dados
     const [formData, setFormData] = useState({
@@ -38,7 +49,7 @@ function ContaForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-
+        console.log(formData)
         const resposta = await criarItem('/conta/', formData); 
 
         if(!erroEspecifico(resposta))
@@ -85,8 +96,8 @@ function ContaForm() {
                         onChange={handleChange}
                     >
                         <option>Selecione</option>
-                        {dadosTipoConta && dadosTipoConta.length > 0 ? (
-                            dadosTipoConta.map((tipo) => (
+                        {dataTipoConta && dataTipoConta.length > 0 ? (
+                            dataTipoConta.map((tipo) => (
                                 <option key={tipo.id_tipoconta} value={tipo.id_tipoconta}>
                                     {tipo.nm_tipoconta}
                                 </option>

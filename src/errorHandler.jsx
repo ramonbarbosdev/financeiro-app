@@ -27,13 +27,29 @@ export const formatarMensagemErro = (error) =>
 
 export const erroEspecifico = (error) => 
 {
+    // TO:DO - FAZER TRATAMENTO NA API
+    let msgPadrao = 'Não é possivel continuar com a operação.';
+    let status = error.status ?? null;
+    console.log(error)
 
     if (error )
     {
-        // if (error.response.error && error.response.error.includes('duplicate key value'))
-        // {
-        //     return 'Já existe uma conta com esse código. Por favor, escolha um código diferente.';
-        // }
+        if( status == 401)
+        {
+            return `${msgPadrao} Falha na solicitação com o servidor - Status ${status}. `;
+        }
+
+        if(error.response && error.response.data)
+        {
+            if( error.response.data.error)
+            {
+                let retornoErro = error.response.data.error;
+                
+                return retornoErro
+
+            }
+
+        }
         
         if(error.message)
         {
@@ -44,6 +60,31 @@ export const erroEspecifico = (error) =>
     
     return false;
 };
+
+
+export const refinaColuna = (retornoErro) =>
+{
+    const match = retornoErro.match(/column "(.*?)"/);
+    if (match && match[1])
+    {
+        const columnName = match[1];
+        return columnName;
+    }
+};
+
+export const refinaViolacaoChaveUnica = (retornoErro) =>
+{
+    const match = retornoErro.match(/Key \((.*?)\)=\((.*?)\) already exists/);
+
+    if (match && match[1] && match[2])
+    {
+        const columnName = match[1];
+        const value = match[2];
+        return `O valor "${value}" já existe para o campo "${columnName}". Por favor, escolha um valor diferente.`;
+    }
+
+};
+    
 
 export const logError = (error) =>
 {
