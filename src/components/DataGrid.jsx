@@ -17,15 +17,25 @@ export function DataGrid({ data = [], columns = [] }) {
         </tr>
       </thead>
       <tbody>
-      {data.map((item, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {columns.map((col, colIndex) => (
-                            <td key={colIndex}>
-                                {col.accessor ? col.accessor(item) : item[col.key]}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
+      {
+          data
+          ?
+          ( 
+            data.map((item, rowIndex) => (
+                          <tr key={rowIndex}>
+                              {columns.map((col, colIndex) => (
+                                  <td key={colIndex}>
+                                      {col.accessor ? col.accessor(item) : item[col.key]}
+                                  </td>
+                              ))}
+                          </tr>
+              ))
+          ) 
+          :
+          (
+            <tr></tr>
+          )
+        }
       </tbody>
     </Table>
   );

@@ -3,17 +3,24 @@ import { fetchDados, criarItem } from "../api/api"; // Certifique-se de que a fu
 import { useQuery } from '@tanstack/react-query';
 import { Button } from 'react-bootstrap';
 import { useState } from "react";
+import { erroEspecifico } from "../errorHandler";
 
 function ContaForm() {
 
-    //TO:DO - COLOCAR VALIDACOES E PUXAR ERROS DA API PARA EXIBIR NO FRONT
+    //exibir tipo conta
+    const [message, setMessage] = useState(""); 
 
-    //carregar tipo da conta
     const { data: dadosTipoConta, error, isLoading } = useQuery({
         queryKey: ['tiposConta'],
         queryFn: () => fetchDados('/tipoconta/'),
     });
 
+    // console.log(error);
+    // if(error)
+    // {
+    // }
+    
+    //salvar dados
     const [formData, setFormData] = useState({
         cd_conta: "",
         nm_conta: "",
@@ -31,20 +38,20 @@ function ContaForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault(); 
-            console.log(formData)
-        try
+
+        const resposta = await criarItem('/conta/', formData); 
+
+        if(!erroEspecifico(resposta))
         {
-            await criarItem('/conta/', formData); 
             setMessage("Conta salva com sucesso!"); 
         }
-        catch (error)
+        else
         {
-            console.error("Erro ao salvar a conta:", error);
-            setMessage("Erro ao salvar a conta.");
+            setMessage(erroEspecifico(resposta));
         }
     };
 
-    const [message, setMessage] = useState(""); 
+ 
 
     return (
         <div>

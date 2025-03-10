@@ -5,8 +5,9 @@ import { useEffect, useState } from "react";
 export function ContaList()
 {
 
-    const { data} =useOutletContext()
+    const { data } = useOutletContext();
 
+    
     const columns = [
       { header: 'Identificador', key: 'id_conta' },
       { header: 'Nome', key: 'nm_conta' },
