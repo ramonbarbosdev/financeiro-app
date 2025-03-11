@@ -8,7 +8,7 @@ import { useNavigate, useOutletContext } from "react-router";
 
 function ContaForm() {
 
-    const {  fetchDataList } = useOutletContext();
+    const {  endpoint,fetchDataList } = useOutletContext();
     const [message, setMessage] = useState(""); 
     const navigate = useNavigate();
 
@@ -54,13 +54,13 @@ function ContaForm() {
     
         if (formData)
         {
-            const resposta = await criarItem('/conta/', formData);
+            const resposta = await criarItem(endpoint, formData);
             
             if (!erroEspecifico(resposta))
             {
                 setMessage("Conta salva com sucesso!");
                 fetchDataList()
-                navigate('/conta/');
+                navigate(endpoint);
             }
             else
             {
