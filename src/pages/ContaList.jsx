@@ -9,7 +9,7 @@ export function ContaList()
 
     
     const columns = [
-      { header: 'Identificador', key: 'id_conta' },
+      { header: 'Codigo', key: 'cd_conta' },
       { header: 'Nome', key: 'nm_conta' },
       // { header: 'Saldo', accessor: item => item.saldo.toFixed(2) }, 
   ];

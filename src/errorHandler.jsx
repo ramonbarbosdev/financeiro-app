@@ -30,7 +30,7 @@ export const erroEspecifico = (error) =>
     // TO:DO - FAZER TRATAMENTO NA API
     let msgPadrao = 'Não é possivel continuar com a operação.';
     let status = error.status ?? null;
-    console.log(error)
+    // console.log(error)
 
     if (error )
     {

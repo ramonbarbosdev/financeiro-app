@@ -3,39 +3,49 @@ import ContainerMain from "../components/ContainerMain";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { fetchDados } from "../api/api";
-import { DataGrid } from "../components/DataGrid";
 import { Outlet } from "react-router";
-import { useQuery } from "@tanstack/react-query";
 import { erroEspecifico } from "../errorHandler";
 
-
-export function ListLayout ({titulo, endpoint}) 
+export function ListLayout({ titulo, endpoint })
 {
     const [data, setData] = useState([]);
+    const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchData = async () => {
+    
+    const fetchDataList = async () => {
+        try {
             const response = await fetchDados(endpoint);
-            setData(response); 
-        };
+            setData(response);
+            setError(null);
+        } catch (err) {
+            setError(err.message); 
+        }
+    };
 
-        fetchData(); 
-    }, []); 
+    
+    useEffect(() => {
+        fetchDataList();
+    }, [endpoint]);
 
-    //TO:DO - QUANDO DER ERRO, NÃO PERMITIR ACESSAR NADA
-    erroEspecifico(data)
-      
 
-    const propsToPass = {  data, endpoint};
+    if (error) {
+        return (
+            <ContainerMain>
+                <Container>
+                    <Header titulo={titulo} pathform={`${endpoint}form`} />
+                    <div>Erro: {error}</div> 
+                </Container>
+            </ContainerMain>
+        );
+    }
+
+    const propsToPass = { data, endpoint, fetchDataList };
 
     return (
         <ContainerMain>
-            <Container >
-
-                <Header titulo={titulo} pathform={`${endpoint}form` }/>
-                  
-                { erroEspecifico(data) == false ?    <Outlet context={propsToPass} />  : <div>{ erroEspecifico(data)}</div> }
-        
+            <Container>
+                <Header titulo={titulo} pathform={`${endpoint}form`} />
+                <Outlet context={propsToPass} />
             </Container>
         </ContainerMain>
     );
