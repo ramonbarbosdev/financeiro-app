@@ -38,31 +38,17 @@ function ContaForm() {
                 label: tipo.nm_tipoconta,
             })),
         },
-        { name: "fl_ativo", label: "Ativo", type: "text", required: true, defaultValue: "SIM", disabled: true  },
+        { name: "fl_ativo", label: "Ativo", type: "text", required: true, defaultValue: true , disabled: true  },
 
     ];
 
-
-    const handleSave = async (formData) => {
-        const resposta = await criarItem(endpoint, formData);
-        if (!erroEspecifico(resposta))
-        {
-            setMessage("Conta salva com sucesso!");
-            navigate(endpoint); 
-        }
-        else
-        {
-            setMessage(erroEspecifico(resposta));
-        }
-    };
 
     return (
         <div>
             <GenericoForm
                 fields={fields}
                 endpoint={endpoint}
-                fetchDataList={obterTipoConta} 
-                onSave={handleSave} 
+                obterListaDatagrid={obterListaDatagrid}
             />
             {message && <AlertCustom tipo={"info"} titulo={"Aviso"} msg={message} />}
         </div>

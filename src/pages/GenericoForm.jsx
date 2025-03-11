@@ -5,7 +5,7 @@ import { erroEspecifico } from "../errorHandler";
 import { useNavigate } from "react-router";
 import AlertCustom from "../components/AlertCustom";
 
-const GenericoForm = ({  fields, endpoint, fetchDataList }) => {
+const GenericoForm = ({  fields, endpoint, obterListaDatagrid }) => {
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
@@ -32,11 +32,12 @@ const GenericoForm = ({  fields, endpoint, fetchDataList }) => {
 
         try
         {
+            console.log(formData)
             const resposta = await criarItem(endpoint, formData);
             if (!erroEspecifico(resposta))
             {
                 setMessage("Registro salvo com sucesso!");
-                fetchDataList(); 
+                obterListaDatagrid(); 
                 navigate(endpoint); 
             }
             else
