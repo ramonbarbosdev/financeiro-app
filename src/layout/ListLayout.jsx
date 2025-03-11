@@ -11,7 +11,6 @@ export function ListLayout({ titulo, endpoint })
     const [data, setData] = useState([]);
     const [error, setError] = useState(null);
 
-    
     const obterListaDatagrid = async () => {
         try {
             const response = await fetchDados(endpoint);
@@ -32,7 +31,7 @@ export function ListLayout({ titulo, endpoint })
         return (
             <ContainerMain>
                 <Container>
-                    <Header titulo={titulo} pathform={`${endpoint}form`} />
+                    <Header titulo={titulo} pathform={`${endpoint}/form`} />
                     <div>Erro: {error}</div> 
                 </Container>
             </ContainerMain>
@@ -44,7 +43,7 @@ export function ListLayout({ titulo, endpoint })
     return (
         <ContainerMain>
             <Container>
-                <Header titulo={titulo} pathform={`${endpoint}form`} />
+                <Header titulo={titulo} endpoint={endpoint} />
                 <Outlet context={propsToPass} />
             </Container>
         </ContainerMain>

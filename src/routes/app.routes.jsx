@@ -15,7 +15,7 @@ export function AppRoutes ()
             {/* <Route index element={<h2>Bem-vindo ao Menu!</h2>} />  */}
     
         </Route>
-        <Route path="/conta" element={<ListLayout titulo={"Contas"} endpoint={"/conta/"} />}>
+        <Route path="/conta" element={<ListLayout titulo={"Contas"} endpoint={"conta"} />}>
             <Route index element={<ContaList />} /> 
             <Route path="/conta/form" element={<ContaForm />} />
         </Route>

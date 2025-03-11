@@ -8,11 +8,10 @@ import AlertCustom from "../components/AlertCustom";
 function ContaForm() {
     const [dataTipoConta, setDataTipoConta] = useState([]);
     const [message, setMessage] = useState("");
-    const navigate = useNavigate();
     const {endpoint, obterListaDatagrid} =  useOutletContext();
 
     const obterTipoConta = async () => {
-        const resposta = await fetchDados("/tipoconta/");
+        const resposta = await fetchDados("tipoconta");
         if (!erroEspecifico(resposta)) {
             setDataTipoConta(resposta);
         } else {

@@ -29,17 +29,17 @@ const apiRequest = async (method, endpoint, data = null) => {
 };
 
 export const fetchDados = async (endpoint) => {
-  return await apiRequest('GET', endpoint); // Chama a função genérica com o método GET
+  return await apiRequest('GET', `/${endpoint}/`); // Chama a função genérica com o método GET
 };
 
 export const criarItem = async (endpoint, novoItem) => {
-  return await apiRequest('POST', endpoint, novoItem); // Chama a função genérica com o método POST
+  return await apiRequest('POST', `/${endpoint}/`, novoItem); // Chama a função genérica com o método POST
 };
 
 export const atualizarItem = async (endpoint, id, itemAtualizado) => {
-  return await apiRequest('PUT', `${endpoint}/${id}`, itemAtualizado); // Chama a função genérica com o método PUT
+  return await apiRequest('PUT', `/${endpoint}/${id}`, itemAtualizado); // Chama a função genérica com o método PUT
 };
 
 export const deletarItem = async (endpoint, id) => {
-  return await apiRequest('DELETE', `${endpoint}/${id}`); // Chama a função genérica com o método DELETE
+  return await apiRequest('DELETE', `/${endpoint}/${id}`); // Chama a função genérica com o método DELETE
 };

@@ -32,13 +32,12 @@ const GenericoForm = ({  fields, endpoint, obterListaDatagrid }) => {
 
         try
         {
-            console.log(formData)
             const resposta = await criarItem(endpoint, formData);
             if (!erroEspecifico(resposta))
             {
                 setMessage("Registro salvo com sucesso!");
                 obterListaDatagrid(); 
-                navigate(endpoint); 
+                navigate(`/${endpoint}`); 
             }
             else
             {

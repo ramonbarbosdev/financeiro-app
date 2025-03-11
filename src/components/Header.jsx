@@ -7,11 +7,11 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
-function Header({ titulo, pathform}) 
+function Header({ titulo, endpoint}) 
 {
     const navigate = useNavigate();
     const location = useLocation();
-    const [dropdownOpen, setDropdownOpen] = useState(false); 
+    const pathform = `/${endpoint}/form`;
 
     function redirection(path)
     {
@@ -59,7 +59,7 @@ function Header({ titulo, pathform})
                       </Dropdown.Toggle>
       
                       <Dropdown.Menu className="custom-menu">
-                        <Dropdown.Item onClick={() => redirection(`${pathform}`)}>
+                        <Dropdown.Item onClick={() => redirection(pathform)}>
                                 <Plus /> Cadastrar
                             </Dropdown.Item>
                       </Dropdown.Menu>
