@@ -70,8 +70,8 @@ function ContaForm() {
 
     const onSave = async (formData) => {
        
-        let resposta = primarykey ? await atualizarItem(endpoint, formData) :  resposta = await criarItem(endpoint, formData);
-
+        let resposta = primarykey ? await atualizarItem(endpoint, formData) :  await criarItem(endpoint, formData);
+        
         if (!erroEspecifico(resposta))
         {
             setMessage("Registro atualizado com sucesso!");
