@@ -82,7 +82,14 @@ function ContaForm() {
         {
             setMessage(erroEspecifico(resposta));
         }
-     
+    };
+
+    const onShow = async () => {
+
+        //TO:DO - FAZER SEQUENCIA
+        const sq_sequencia = await fetchDados('conta', primarykey);
+        
+       
     };
 
    
@@ -90,11 +97,9 @@ function ContaForm() {
     return (
         <div>
             <GenericoForm
-                primarykey={primarykey}
                 fields={fields}
-                endpoint={endpoint}
-                obterListaDatagrid={obterListaDatagrid}
-                onEdit={onEdit} 
+                onEdit={onEdit}
+                onShow={onShow} 
                 onSave={onSave} 
             />
             {message && <AlertCustom tipo={"info"} titulo={"Aviso"} msg={message} />}

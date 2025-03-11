@@ -2,26 +2,29 @@ import { Form, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import AlertCustom from "../components/AlertCustom";
 
-const GenericoForm = ({ primarykey, fields, endpoint, obterListaDatagrid, onEdit, onSave }) => {
+const GenericoForm = ({  fields,   onEdit, onSave, onShow }) => {
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState("");
 
-// console.log(fields)
+    const loadData = async () => {
+        
+        const data = await onEdit();
+        if (data)
+        {
+            setFormData(data); 
+        }
+        else
+        {
+            const initialData = {};
+            fields.forEach(field => {
+                initialData[field.name] = field.defaultValue || ""; 
+            });
+            setFormData(initialData);
+        }
+    };
 
     useEffect(() => {
-        const loadData = async () => {
-            const data = await onEdit();
-            if (data) {
-                setFormData(data); // Preenche o formData com os dados retornados
-            } else {
-                const initialData = {};
-                fields.forEach(field => {
-                    initialData[field.name] = field.defaultValue || ""; 
-                });
-                setFormData(initialData);
-            }
-        };
-
+        onShow();
         loadData();
     }, [onEdit, fields]);
 
