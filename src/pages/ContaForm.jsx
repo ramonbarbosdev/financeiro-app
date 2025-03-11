@@ -1,30 +1,32 @@
 import { useEffect, useState } from "react";
-import { atualizarItem, criarItem, fetchDados } from "../api/api"; // Certifique-se de que a função fetchDados está definida
+import { atualizarItem, criarItem, fetchDados } from "../api/api"; // Certifique-se de que as funções estão definidas
 import GenericoForm from "./GenericoForm"; // Importa o componente de formulário genérico
 import { erroEspecifico } from "../errorHandler";
 import { useNavigate, useOutletContext, useSearchParams } from "react-router";
 import AlertCustom from "../components/AlertCustom";
+import { useQuery } from "@tanstack/react-query";
 
 function ContaForm() {
-    const [dataTipoConta, setDataTipoConta] = useState([]);
     const [message, setMessage] = useState("");
     const { endpoint, obterListaDatagrid } = useOutletContext();
     const [searchParams] = useSearchParams();
     const primarykey = searchParams.get('id');
     const navigate = useNavigate();
 
-    const obterTipoConta = async () => {
-        const resposta = await fetchDados("tipoconta");
-        if (!erroEspecifico(resposta)) {
-            setDataTipoConta(resposta);
-        } else {
-            setMessage(erroEspecifico(resposta));
-        }
+    const obterDados = async (tabela) => {
+        const resposta = await fetchDados(tabela);
+        return resposta; 
     };
+ 
+    const { data: dataTipoConta = [] } = useQuery({
+        queryKey: ['tipoconta'],
+        queryFn: () => obterDados('tipoconta'),
+      });
 
-    useEffect(() => {
-        obterTipoConta();
-    }, []);
+    const { data: dataStatusConta = [] } = useQuery({
+        queryKey: ['stausconta'],
+        queryFn: () => obterDados('statusconta'),
+      });
 
     const fields = [
         { name: "cd_conta", label: "Código", type: "text", required: true },
@@ -39,73 +41,51 @@ function ContaForm() {
                 label: tipo.nm_tipoconta,
             })),
         },
-        // {
-        //     name: "fl_ativo",
-        //     label: "Ativo",
-        //     type: "select",
-        //     required: true,
-        //     disabled: false,
-        //     defaultValue: 1,
-        //     options: [
-        //         { value: 1, label: "Ativo" },
-        //         { value: 0, label: "Inativo" },
-        //     ],
-        // },
+        {
+            name: "id_statusconta",
+            label: "Status",
+            type: "select",
+            required: true,
+            options: dataStatusConta.map((status) => ({
+                value: status.id_statusconta,
+                label: status.nm_statusconta,
+            })),
+        },
+       
     ];
-
 
     const onEdit = async () => {
         if (primarykey)
         {
-            const resposta = await fetchDados(endpoint,primarykey);
+            const resposta = await fetchDados(endpoint, primarykey);
+
             if (!erroEspecifico(resposta))
             {
                 return resposta; 
             }
-            else
-            {
-                setMessage(erroEspecifico(resposta));
-            }
+            
+            setMessage(erroEspecifico(resposta));
         }
     };
 
     const onSave = async (formData) => {
+       
+        let resposta = primarykey ? await atualizarItem(endpoint, formData) :  resposta = await criarItem(endpoint, formData);
 
-        if (primarykey)
+        if (!erroEspecifico(resposta))
         {
-           
-            const resposta = await atualizarItem(endpoint, formData);
-
-            if (!erroEspecifico(resposta))
-            {
-                setMessage("Registro atualizado com sucesso!");
-            }
-            else
-            {
-                setMessage(erroEspecifico(resposta));
-            }
+            setMessage("Registro atualizado com sucesso!");
+            obterListaDatagrid(); 
+            navigate(-1); 
         }
         else
         {
-            const resposta = await criarItem(endpoint, formData);
-
-            if (!erroEspecifico(resposta))
-            {
-                setMessage("Registro salvo com sucesso!");
-            }
-            else
-            {
-                setMessage(erroEspecifico(resposta));
-            }
-
-
+            setMessage(erroEspecifico(resposta));
         }
-
-        obterListaDatagrid(); 
-        navigate(-1);
+     
     };
 
-
+   
 
     return (
         <div>
