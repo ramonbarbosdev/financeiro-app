@@ -12,7 +12,7 @@ export function ListLayout({ titulo, endpoint })
     const [error, setError] = useState(null);
 
     
-    const fetchDataList = async () => {
+    const obterListaDatagrid = async () => {
         try {
             const response = await fetchDados(endpoint);
             setData(response);
@@ -24,7 +24,7 @@ export function ListLayout({ titulo, endpoint })
 
     
     useEffect(() => {
-        fetchDataList();
+        obterListaDatagrid();
     }, [endpoint]);
 
 
@@ -39,7 +39,7 @@ export function ListLayout({ titulo, endpoint })
         );
     }
 
-    const propsToPass = { data, endpoint, fetchDataList };
+    const propsToPass = { data, endpoint, obterListaDatagrid };
 
     return (
         <ContainerMain>
