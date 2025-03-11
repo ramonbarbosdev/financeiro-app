@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { Table, Button } from 'react-bootstrap';
 import { useOutletContext } from 'react-router';
 import { deletarItem } from '../api/api'; // Certifique-se de que a função deletarItem está definida
-import { Trash, Trash2 } from 'lucide-react';
+import { Pencil, Trash, Trash2 } from 'lucide-react';
 import { erroEspecifico } from '../errorHandler';
 import AlertCustom from './AlertCustom';
+import { useNavigate  } from "react-router";
+
 
 export function DataGrid({ data = [], columns = [], primarykey }) {
     const { endpoint, obterListaDatagrid } = useOutletContext();
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleDelete = async (id) => {
       const response = await deletarItem(endpoint, id);
@@ -24,6 +27,14 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
       }
       
     };
+
+    const handleEdit = (id) => {
+        const query = new URLSearchParams();
+        query.set("id", id);
+
+        navigate(`/${endpoint}/form?${query}`); 
+    };
+
 
     return (
         <div>
@@ -47,9 +58,17 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
                                       {col.accessor ? col.accessor(item) : item[col.key]}
                                   </td>
                               ))}
-                              <td>
-                                  <Button variant="danger" onClick={() => handleDelete(item[primarykey])}><Trash2/></Button> 
+                               <td>
+                                  <Button variant="primary" onClick={() => handleEdit(item[primarykey])}>
+                                      <Pencil />
+                                  </Button>
                               </td>
+                              <td>
+                                  <Button variant="danger" onClick={() => handleDelete(item[primarykey])}>
+                                    <Trash2/>
+                                  </Button> 
+                              </td>
+                             
                           </tr>
                       ))
                   ) : (
