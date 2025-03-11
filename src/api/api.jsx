@@ -20,7 +20,7 @@ const apiRequest = async (method, endpoint, data = null) => {
       data,
     };
     const resposta = await api(config);
-    return resposta.data; // Retorna os dados da resposta
+    return resposta.data;
   }
   catch (error)
   {
