@@ -34,18 +34,21 @@ const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
 
     const carregarSequencia = async (nm_sequencia) =>
     {
-        if(nm_sequencia)
+        if(!nm_sequencia)
         {
-            const sq_sequencia = await obterSequencia(endpoint);
-
-            if (!erroEspecifico(sq_sequencia))
-            {
-                setFormData((prevData) => ({
-                    ...prevData,
-                    [nm_sequencia]: sq_sequencia
-                }));
-            }
+            return;
         }
+        
+        const sq_sequencia = await obterSequencia(endpoint);
+        if (erroEspecifico(sq_sequencia))
+        {
+            return;
+        }
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [nm_sequencia]: sq_sequencia
+        }));
         
     };
 
@@ -75,7 +78,7 @@ const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
                         {field.type === "select" ? (
                             <Form.Select
                                 name={field.name}
-                                value={formData[field.name] || ""} // Garante que o valor seja uma string vazia se não existir
+                                value={formData[field.name] || ""} 
                                 onChange={handleChange}
                                 required={field.required}
                                 disabled={field.disabled}

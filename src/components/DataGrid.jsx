@@ -16,10 +16,13 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
     const handleDelete = async (id) => {
         const response = await deletarItem(endpoint, id);
 
-        if (!erroEspecifico(response)) {
+        if (!erroEspecifico(response))
+        {
             obterListaDatagrid();
             setMessage("Registro deletado!"); 
-        } else {
+        }
+        else
+        {
             setMessage(erroEspecifico(response));
         }
     };
@@ -27,7 +30,6 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
     const handleEdit = (id) => {
         const query = new URLSearchParams();
         query.set("id", id);
-
         navigate(`/${endpoint}/form?${query}`); 
     };
 
@@ -71,7 +73,8 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
 
         const dadosRelatadoMapa = Object.keys(dadosRelatado).reduce((acc, key) => {
             const column = columns.find(col => col.relatedTable === key);
-            if (column) {
+            if (column)
+            {
                 acc[key] = createMapping(dadosRelatado[key], column.key, column.column);
             }
             return acc;

@@ -13,20 +13,12 @@ export function ListLayout({ titulo, endpoint })
     const [error, setError] = useState(null);
 
     const obterListaDatagrid = async () => {
+        
         const response = await fetchDados(endpoint);
 
-        if (!erroEspecifico(response))
-        {
-            setData(response);
-        }
-        else
-        {
-            setError(erroEspecifico(response));
-        }
-      
+        !erroEspecifico(response) ?  setData(response) :   setError(erroEspecifico(response));
     };
 
-    
     useEffect(() => {
         obterListaDatagrid();
     }, [endpoint]);
