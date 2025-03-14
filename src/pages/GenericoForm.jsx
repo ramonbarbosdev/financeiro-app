@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import AlertCustom from "../components/AlertCustom";
 import { obterSequencia } from "../api/api";
 import { useOutletContext } from "react-router";
+import { erroEspecifico } from "../errorHandler";
 
 const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
 {
@@ -20,7 +21,6 @@ const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
         }
         else
         {
-
             onShow();
             carregarSequencia(nm_sequencia);
             const initialData = {};
@@ -28,7 +28,6 @@ const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
                 initialData[field.name] = field.defaultValue || ""; 
             });
             setFormData(initialData);
-
         }
     };
 
@@ -38,10 +37,14 @@ const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
         if(nm_sequencia)
         {
             const sq_sequencia = await obterSequencia(endpoint);
-            setFormData((prevData) => ({
-                ...prevData,
-                [nm_sequencia]: sq_sequencia
-            }));
+
+            if (!erroEspecifico(sq_sequencia))
+            {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    [nm_sequencia]: sq_sequencia
+                }));
+            }
         }
         
     };
