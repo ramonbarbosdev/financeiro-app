@@ -7,7 +7,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 
-function Header({ titulo, endpoint}) 
+function Header({ titulo, endpoint,fl_error}) 
 {
     const navigate = useNavigate();
     const location = useLocation();
@@ -52,19 +52,23 @@ function Header({ titulo, endpoint})
                 }
             </div>
 
-            {!isMenuRoute && !isFormRoute &&  (
-                      <Dropdown className="dropdown-botao">
-                      <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">
-                          <EllipsisVertical />
-                      </Dropdown.Toggle>
-      
-                      <Dropdown.Menu className="custom-menu">
-                        <Dropdown.Item onClick={() => redirection(pathform)}>
-                                <Plus /> Cadastrar
-                            </Dropdown.Item>
-                      </Dropdown.Menu>
-                  </Dropdown>
-            )}
+            {
+               !fl_error && !isMenuRoute && !isFormRoute && 
+               (
+                   <Dropdown className="dropdown-botao">
+                   <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">
+                       <EllipsisVertical />
+                   </Dropdown.Toggle>
+   
+                   <Dropdown.Menu className="custom-menu">
+                       <Dropdown.Item onClick={() => redirection(pathform)}>
+                               <Plus /> Cadastrar
+                           </Dropdown.Item>
+                   </Dropdown.Menu>
+               </Dropdown>
+               )
+                
+            }
 
           
         </div>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchDados } from "../api/api";
 import { Outlet } from "react-router";
 import { erroEspecifico } from "../errorHandler";
+import AlertCustom from "../components/AlertCustom";
 
 export function ListLayout({ titulo, endpoint })
 {
@@ -12,13 +13,17 @@ export function ListLayout({ titulo, endpoint })
     const [error, setError] = useState(null);
 
     const obterListaDatagrid = async () => {
-        try {
-            const response = await fetchDados(endpoint);
+        const response = await fetchDados(endpoint);
+
+        if (!erroEspecifico(response))
+        {
             setData(response);
-            setError(null);
-        } catch (err) {
-            setError(err.message); 
         }
+        else
+        {
+            setError(erroEspecifico(response));
+        }
+      
     };
 
     
@@ -26,26 +31,16 @@ export function ListLayout({ titulo, endpoint })
         obterListaDatagrid();
     }, [endpoint]);
 
-
-    if (error) {
-        return (
-            <ContainerMain>
-                <Container>
-                    <Header titulo={titulo} pathform={`${endpoint}/form`} />
-                    <div>Erro: {error}</div> 
-                </Container>
-            </ContainerMain>
-        );
-    }
-
     const propsToPass = { data, endpoint, obterListaDatagrid };
 
     return (
         <ContainerMain>
             <Container>
-                <Header titulo={titulo} endpoint={endpoint} />
-                <Outlet context={propsToPass} />
+                <Header titulo={titulo} endpoint={endpoint} fl_error={error}/>
+                {error && <AlertCustom tipo={"info"} titulo={"Aviso"} msg={error} />}
+                {!error && data.length > 0 && <Outlet context={propsToPass} />}
             </Container>
         </ContainerMain>
     );
+   
 }

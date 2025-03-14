@@ -36,7 +36,7 @@ export const erroEspecifico = (error) =>
     {
         if( status == 401)
         {
-            return `${msgPadrao} Falha na solicitação com o servidor - Status ${status}. `;
+            return `${msgPadrao} Erro na autenticação: JWT expired - Status ${status}. `;
         }
 
         if(error.response && error.response.data)
