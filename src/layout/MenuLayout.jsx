@@ -28,6 +28,7 @@ export function MenuLayout ()
                 <div className='container-botao-menu'>
                     <ButtonCustom onClick={()=> {redirection("/conta")}}> Conta </ButtonCustom>
                     <ButtonCustom onClick={()=> {redirection("/categoria")}}> Categoria </ButtonCustom>
+                    <ButtonCustom onClick={()=> {redirection("/lancamento")}}> Lancamento </ButtonCustom>
                 </div>
  
             </Container>
