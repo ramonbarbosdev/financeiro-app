@@ -24,6 +24,7 @@ function CategoriaForm() {
       });
 
     const fields = [
+        { name: "cd_categoria", label: "Codigo", type: "text", required: true },
         { name: "nm_categoria", label: "Nome da Categoria", type: "text", required: true },
         {
             name: "id_tipocategoria",
@@ -70,10 +71,7 @@ function CategoriaForm() {
 
     const onShow = async () => {
 
-        //TO:DO - FAZER SEQUENCIA
-        // const sq_sequencia = await fetchDados('conta', primarykey);
-       
-       
+      
     };
 
    
@@ -81,6 +79,7 @@ function CategoriaForm() {
     return (
         <div>
             <GenericoForm
+                nm_sequencia={'cd_categoria'}
                 fields={fields}
                 onEdit={onEdit}
                 onShow={onShow} 

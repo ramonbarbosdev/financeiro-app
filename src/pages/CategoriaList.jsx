@@ -8,6 +8,7 @@ export function CategoriaList()
 
     const columns = [
         { header: 'Id', key: key, hidden: true },
+        { header: 'Codigo', key: 'cd_categoria' },
         { header: 'Tipo', key: 'id_tipocategoria' , relatedTable: 'tipocategoria' , column: 'nm_tipocategoria' },
         { header: 'Nome', key: 'nm_categoria' },
     ];

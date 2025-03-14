@@ -53,7 +53,7 @@ function Header({ titulo, endpoint,fl_error})
             </div>
 
             {
-               !fl_error && !isMenuRoute && !isFormRoute && 
+               !isMenuRoute && !isFormRoute && 
                (
                    <Dropdown className="dropdown-botao">
                    <Dropdown.Toggle className="custom-toggle" id="dropdown-basic">

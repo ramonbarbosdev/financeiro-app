@@ -31,44 +31,53 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
         navigate(`/${endpoint}/form?${query}`); 
     };
 
-    const buscarDadosRelacionados = async () => {
-        const relatedTables = columns
-            .filter(col => col.relatedTable)
-            .map(col => col.relatedTable); 
+   
+        const buscarDadosRelacionados = async () => {
+            const relatedTables = columns
+                .filter(col => col.relatedTable)
+                .map(col => col.relatedTable); 
 
-        const fetchPromises = relatedTables.map(async (table) => {
-            const resposta = await fetchDados(table); 
-            return { table, data: resposta }; 
-        });
+            const fetchPromises = relatedTables.map(async (table) => {
+                const resposta = await fetchDados(table); 
+                return { table, data: resposta }; 
+            });
 
-        const results = await Promise.all(fetchPromises); 
-       
-        const mappedData = results.reduce((acc, { table, data }) => {
-            acc[table] = data; 
+            const results = await Promise.all(fetchPromises); 
+        
+            const mappedData = results.reduce((acc, { table, data }) => {
+                acc[table] = data; 
+                return acc;
+            }, {});
+
+            setdadosRelatado(mappedData);
+        };
+
+        useEffect(() => {
+            buscarDadosRelacionados(); 
+        }, [columns]); 
+
+        const createMapping = (data, keyField, valueField) => {
+         
+            if (!erroEspecifico(data))
+            {
+                return data.reduce((acc, item) => {
+                    acc[item[keyField]] = item[valueField];
+                    return acc;
+                }, {});
+            }
+        
+            return {}; 
+        };
+
+        const dadosRelatadoMapa = Object.keys(dadosRelatado).reduce((acc, key) => {
+            const column = columns.find(col => col.relatedTable === key);
+            if (column) {
+                acc[key] = createMapping(dadosRelatado[key], column.key, column.column);
+            }
             return acc;
         }, {});
 
-        setdadosRelatado(mappedData);
-    };
 
-    useEffect(() => {
-        buscarDadosRelacionados(); 
-    }, [columns]); 
-
-    const createMapping = (data, keyField, valueField) => {
-        return data.reduce((acc, item) => {
-            acc[item[keyField]] = item[valueField];
-            return acc;
-        }, {});
-    };
-
-    const dadosRelatadoMapa = Object.keys(dadosRelatado).reduce((acc, key) => {
-        const column = columns.find(col => col.relatedTable === key);
-        if (column) {
-            acc[key] = createMapping(dadosRelatado[key], column.key, column.column);
-        }
-        return acc;
-    }, {});
 
     return (
         <div>

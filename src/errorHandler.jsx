@@ -45,6 +45,12 @@ export const erroEspecifico = (error) =>
             {
                 let retornoErro = error.response.data.error;
                 
+                if(retornoErro.includes("Nenhum registro encontrada!"))
+                {
+                    return false;
+
+                }
+
                 return retornoErro
 
             }

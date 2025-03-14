@@ -38,7 +38,7 @@ export function ListLayout({ titulo, endpoint })
             <Container>
                 <Header titulo={titulo} endpoint={endpoint} fl_error={error}/>
                 {error && <AlertCustom tipo={"info"} titulo={"Aviso"} msg={error} />}
-                {!error && data.length > 0 && <Outlet context={propsToPass} />}
+                {!error && <Outlet context={propsToPass} />}
             </Container>
         </ContainerMain>
     );
