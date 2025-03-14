@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { atualizarItem, criarItem, fetchDados, obterSequencia } from "../api/api"; // Certifique-se de que as funções estão definidas
+import { atualizarItem, criarItem, fetchDados } from "../api/api"; // Certifique-se de que as funções estão definidas
 import GenericoForm from "./GenericoForm"; // Importa o componente de formulário genérico
 import { erroEspecifico } from "../errorHandler";
 import { useNavigate, useOutletContext, useSearchParams } from "react-router";
 import AlertCustom from "../components/AlertCustom";
 import { useQuery } from "@tanstack/react-query";
 
-function ContaForm() {
+function CategoriaForm() {
     const [message, setMessage] = useState("");
     const { endpoint, obterListaDatagrid } = useOutletContext();
     const [searchParams] = useSearchParams();
@@ -17,38 +17,22 @@ function ContaForm() {
         const resposta = await fetchDados(tabela);
         return resposta; 
     };
- 
-    const { data: dataTipoConta = [] } = useQuery({
-        queryKey: ['tipoconta'],
-        queryFn: () => obterDados('tipoconta'),
-      });
-
-    const { data: dataStatusConta = [] } = useQuery({
-        queryKey: ['stausconta'],
-        queryFn: () => obterDados('statusconta'),
+    
+    const { data: dataTipoCategoria = [] } = useQuery({
+        queryKey: ['tipocategoria'],
+        queryFn: () => obterDados('tipocategoria'),
       });
 
     const fields = [
-        { name: "cd_conta", label: "Código", type: "text", required: true },
-        { name: "nm_conta", label: "Nome da Conta", type: "text", required: true },
+        { name: "nm_categoria", label: "Nome da Categoria", type: "text", required: true },
         {
-            name: "id_tipoconta",
-            label: "Tipo de Conta",
+            name: "id_tipocategoria",
+            label: "Tipo de Categoria",
             type: "select",
             required: true,
-            options: dataTipoConta.map((tipo) => ({
-                value: tipo.id_tipoconta,
-                label: tipo.nm_tipoconta,
-            })),
-        },
-        {
-            name: "id_statusconta",
-            label: "Status",
-            type: "select",
-            required: true,
-            options: dataStatusConta.map((status) => ({
-                value: status.id_statusconta,
-                label: status.nm_statusconta,
+            options: dataTipoCategoria.map((tipo) => ({
+                value: tipo.id_tipocategoria,
+                label: tipo.nm_tipocategoria,
             })),
         },
        
@@ -84,11 +68,12 @@ function ContaForm() {
         }
     };
 
-    const onShow = async () =>
-    {
+    const onShow = async () => {
 
-        
-        
+        //TO:DO - FAZER SEQUENCIA
+        // const sq_sequencia = await fetchDados('conta', primarykey);
+       
+       
     };
 
    
@@ -96,7 +81,6 @@ function ContaForm() {
     return (
         <div>
             <GenericoForm
-                nm_sequencia={'cd_conta'}
                 fields={fields}
                 onEdit={onEdit}
                 onShow={onShow} 
@@ -107,4 +91,4 @@ function ContaForm() {
     );
 }
 
-export default ContaForm;
+export default CategoriaForm;

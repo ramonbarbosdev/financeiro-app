@@ -1,31 +1,53 @@
 import { Form, Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import AlertCustom from "../components/AlertCustom";
+import { obterSequencia } from "../api/api";
+import { useOutletContext } from "react-router";
 
-const GenericoForm = ({  fields,   onEdit, onSave, onShow }) => {
+const GenericoForm = ({ nm_sequencia, fields,   onEdit, onSave, onShow }) =>
+{
     const [formData, setFormData] = useState({});
     const [message, setMessage] = useState("");
+    const { endpoint } = useOutletContext();
 
-    const loadData = async () => {
+    const carregarDados = async () => {
         
         const data = await onEdit();
+
         if (data)
         {
             setFormData(data); 
         }
         else
         {
+
+            onShow();
+            carregarSequencia(nm_sequencia);
             const initialData = {};
             fields.forEach(field => {
                 initialData[field.name] = field.defaultValue || ""; 
             });
             setFormData(initialData);
+
         }
     };
 
+
+    const carregarSequencia = async (nm_sequencia) =>
+    {
+        if(nm_sequencia)
+        {
+            const sq_sequencia = await obterSequencia(endpoint);
+            setFormData((prevData) => ({
+                ...prevData,
+                [nm_sequencia]: sq_sequencia
+            }));
+        }
+        
+    };
+
     useEffect(() => {
-        onShow();
-        loadData();
+        carregarDados();
     }, [onEdit, fields]);
 
     const handleChange = (e) => {

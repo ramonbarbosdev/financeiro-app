@@ -78,7 +78,10 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
                 <thead>
                     <tr>
                         {columns.map((col, index) => (
-                            <th key={index}>{col.header}</th>
+                            !col.hidden &&
+                            (
+                                <th key={index}>{col.header}</th>
+                            )
                         ))}
                         <th>Ações</th> 
                     </tr>
@@ -88,11 +91,14 @@ export function DataGrid({ data = [], columns = [], primarykey }) {
                         data.map((item, rowIndex) => (
                             <tr key={rowIndex}>
                                 {columns.map((col, colIndex) => (
-                                    <td key={colIndex}>
-                                        {col.relatedTable && dadosRelatadoMapa[col.relatedTable] && dadosRelatadoMapa[col.relatedTable][item[col.key]] 
-                                            ? dadosRelatadoMapa[col.relatedTable][item[col.key]] 
-                                            : item[col.key]}
-                                    </td>
+                                    !col.hidden &&
+                                    ( 
+                                        <td key={colIndex}>
+                                            {col.relatedTable && dadosRelatadoMapa[col.relatedTable] && dadosRelatadoMapa[col.relatedTable][item[col.key]] 
+                                                ? dadosRelatadoMapa[col.relatedTable][item[col.key]] 
+                                                : item[col.key]}
+                                        </td>
+                                    )
                                 ))}
                                 <td>
                                     <Button variant="primary" onClick={() => handleEdit(item[primarykey])}>

@@ -4,6 +4,8 @@ import { ListLayout } from "../layout/ListLayout";
 import { ContaList } from "../pages/ContaList";
 import ContaForm from "../pages/ContaForm";
 import ErrorBoundary from "antd/es/alert/ErrorBoundary";
+import { CategoriaList } from "../pages/CategoriaList";
+import CategoriaForm from "../pages/CategoriaForm";
 
 export function AppRoutes () 
 {
@@ -18,6 +20,10 @@ export function AppRoutes ()
         <Route path="/conta" element={<ListLayout titulo={"Contas"} endpoint={"conta"} />}>
             <Route index element={<ContaList />} /> 
             <Route path="/conta/form" element={<ContaForm />} />
+        </Route>
+        <Route path="/categoria" element={<ListLayout titulo={"Categorias"} endpoint={"categoria"} />}>
+            <Route index element={<CategoriaList />} /> 
+            <Route path="/categoria/form" element={<CategoriaForm />} />
         </Route>
 
 

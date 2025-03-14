@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/controlefinanceiro'; // Base URL da API
-const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc0MTc3MzUzNH0.QlHrhmihInvEA8MScDMXMdxhdQjg3hxrJrUjko4Czgqd0aujkSGjJ99Ksl9HG3YtxTT2I4H6cuBa2RuLkYcHVw'; // Substitua pelo seu token real
+const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc0MjE0MzQ0OX0.k0w-detVwpKHlF7gbRI9KhW9W4nLFs7oVLdKP8pEyz8tGqiiNU2MNe-82l61y2q7hPN0zVcE4Jr96Ia6RGicrQ'
 
 
 const api = axios.create({
@@ -48,4 +48,9 @@ export const atualizarItem = async (endpoint, itemAtualizado) => {
 
 export const deletarItem = async (endpoint, id) => {
   return await apiRequest('DELETE', `/${endpoint}/${id}`); 
+};
+
+export const obterSequencia = async (endpoint) =>
+{
+  return await apiRequest('GET', `/${endpoint}/sequencia`); 
 };
