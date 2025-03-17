@@ -31,6 +31,7 @@ export  function LancamentoForm()
         queryFn: () => obterDados('statuslancamento'),
       });
 
+
     const fields = [
         { name: "cd_lancamento", label: "Codigo", type: "text", required: true },
         { name: "dt_lancamento", label: "Data", type: "date", required: true },
@@ -55,14 +56,56 @@ export  function LancamentoForm()
                 value: status.id_statuslancamento,
                 label: status.ds_statuslancamento,
             })),
-        }
+        },
+     
        
     ];
 
+        
+    const { data: dataTipoOperacao = [] } = useQuery({
+        queryKey: ['tipooperacao'],
+        queryFn: () => obterDados('tipooperacao'),
+      });
+        
+    const { data: dataCategoria = [] } = useQuery({
+        queryKey: ['categoria'],
+        queryFn: () => obterDados('categoria'),
+      });
+    const { data: dataMetodoPagamento = [] } = useQuery({
+        queryKey: ['metodopagamento'],
+        queryFn: () => obterDados('metodopagamento'),
+      });
 
     const fieldsItens = [
-        { name: "id_lancamento", label: "Vinc Lancamento", type: "text", required: true },
-        { name: "vl_movimento", label: "Valor", type: "date", required: true },
+        { name: "id_lancamento", label: "Vinc Lancamento", type: "text",  disabled: true },
+        {
+            name: "id_tipooperacao",
+            label: "Tipo Operacao",
+            type: "select",
+            options: dataTipoOperacao.map((tipo) => ({
+                value: tipo.id_tipooperacao,
+                label: tipo.ds_tipooperacao,
+            })),
+        },
+        {
+            name: "id_categoria",
+            label: "Categoria",
+            type: "select",
+            options: dataCategoria.map((cate) => ({
+                value: cate.id_categoria,
+                label: cate.nm_categoria,
+            })),
+        },
+        { name: "vl_movimento", label: "Valor", type: "numeric" },
+        {
+            name: "id_metodopagamento",
+            label: "Metodo de Pagamento",
+            type: "select",
+            options: dataMetodoPagamento.map((metodo) => ({
+                value: metodo.id_metodopagamento,
+                label: metodo.ds_metodopagamento,
+            })),
+        },
     ];
 
 
