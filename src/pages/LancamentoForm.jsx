@@ -5,6 +5,8 @@ import { erroEspecifico } from "../errorHandler";
 import { useNavigate, useOutletContext, useSearchParams } from "react-router";
 import AlertCustom from "../components/AlertCustom";
 import { useQuery } from "@tanstack/react-query";
+import GenericoMestreDetalheForm from "./GenericoMestreForm";
+import GenericoMestreForm from "./GenericoMestreForm";
 
 export  function LancamentoForm()
 {
@@ -53,9 +55,16 @@ export  function LancamentoForm()
                 value: status.id_statuslancamento,
                 label: status.ds_statuslancamento,
             })),
-        },
+        }
        
     ];
+
+
+    const fieldsItens = [
+        { name: "id_lancamento", label: "Vinc Lancamento", type: "text", required: true },
+        { name: "vl_movimento", label: "Valor", type: "date", required: true },
+    ];
+
 
     const onEdit = async () => {
         if (primarykey)
@@ -96,12 +105,13 @@ export  function LancamentoForm()
 
     return (
         <div>
-            <GenericoForm
+            <GenericoMestreForm
                 nm_sequencia={'cd_lancamento'}
                 fields={fields}
                 onEdit={onEdit}
                 onShow={onShow} 
-                onSave={onSave} 
+                onSave={onSave}
+                fieldsItens={fieldsItens}
             />
             {message && <AlertCustom tipo={"info"} titulo={"Aviso"} msg={message} />}
         </div>

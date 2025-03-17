@@ -7,7 +7,7 @@ import ErrorBoundary from "antd/es/alert/ErrorBoundary";
 import { CategoriaList } from "../pages/CategoriaList";
 import CategoriaForm from "../pages/CategoriaForm";
 import { LancamentoForm } from "../pages/LancamentoForm";
-import { LancamentoList } from "../pages/ContaList copy";
+import { LancamentoList } from "../pages/LancamentoList";
 
 export function AppRoutes () 
 {
