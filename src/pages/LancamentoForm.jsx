@@ -97,7 +97,7 @@ export  function LancamentoForm()
     return (
         <div>
             <GenericoForm
-                nm_sequencia={'cd_categoria'}
+                nm_sequencia={'cd_lancamento'}
                 fields={fields}
                 onEdit={onEdit}
                 onShow={onShow} 

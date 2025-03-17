@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/controlefinanceiro'; // Base URL da API
-const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc0MjE0MzQ0OX0.k0w-detVwpKHlF7gbRI9KhW9W4nLFs7oVLdKP8pEyz8tGqiiNU2MNe-82l61y2q7hPN0zVcE4Jr96Ia6RGicrQ'
+const TOKEN = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTc0MjM4NDk3NX0.F2edJNvF67Vih65Ccj0uRb3htck-42QmUePx-6nAuef6SCSA1C3i66JcqLaEQb_KPgUmFy6aaSZWyI4uqrO-8A'
 
 
 const api = axios.create({
