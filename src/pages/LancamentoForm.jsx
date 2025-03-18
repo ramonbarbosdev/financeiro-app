@@ -7,6 +7,7 @@ import AlertCustom from "../components/AlertCustom";
 import { useQuery } from "@tanstack/react-query";
 import GenericoMestreDetalheForm from "./GenericoMestreForm";
 import GenericoMestreForm from "./GenericoMestreForm";
+import { formatarData } from "../service/formatarData";
 
 export  function LancamentoForm()
 {
@@ -31,12 +32,11 @@ export  function LancamentoForm()
         queryFn: () => obterDados('statuslancamento'),
       });
 
-
     const fields = [
         { name: "cd_lancamento", label: "Codigo", type: "text", required: true },
         { name: "dt_lancamento", label: "Data", type: "date", required: true },
         { name: "ds_lancamento", label: "Descricao", type: "text", required: true },
-        { name: "vl_lancamento", label: "Lancamento (R$)", type: "numeric", required: true },
+        { name: "vl_lancamento", label: "Lancamento (R$)", type: "numeric", required: true, disabled: true},
         {
             name: "id_conta",
             label: "Conta",
@@ -110,12 +110,15 @@ export  function LancamentoForm()
 
 
     const onEdit = async () => {
+
         if (primarykey)
         {
             const resposta = await fetchDados(endpoint, primarykey);
 
             if (!erroEspecifico(resposta))
             {
+                resposta['dt_lancamento'] = formatarData(resposta['dt_lancamento']);
+
                 return resposta; 
             }
             
@@ -123,10 +126,11 @@ export  function LancamentoForm()
         }
     };
 
-    const onSave = async (formData) => {
+    const onSave = async (formData, event) => {
+        // event.preventDefault();
        
-        let resposta = primarykey ? await atualizarItem(endpoint, formData) :  await criarItem(endpoint, formData);
-        
+        let resposta = primarykey ? await atualizarItem(`${endpoint}/atualizar`, formData) :  await criarItem(`${endpoint}/cadastrar`, formData);
+       
         if (!erroEspecifico(resposta))
         {
             setMessage("Registro atualizado com sucesso!");

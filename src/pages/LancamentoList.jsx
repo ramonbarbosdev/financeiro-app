@@ -3,13 +3,13 @@ import { DataGrid } from "../components/DataGrid";
 
 export function LancamentoList() {
     const { data } = useOutletContext();
-    const key = "id_conta";
+    const key = "id_lancamento";
 
     const columns = [
         { header: 'Id', key: key, hidden: true},
         { header: 'Código', key: 'cd_lancamento' },
         { header: 'Conta', key: 'id_conta', relatedTable: 'conta', column: 'nm_conta' },
-        { header: 'Status', key: 'id_statuslancamento', relatedTable: 'statuslancamento', column: 'nm_statuslancamento' }
+        { header: 'Status', key: 'id_statuslancamento', relatedTable: 'statuslancamento', column: 'ds_statuslancamento' }
     ];
 
    

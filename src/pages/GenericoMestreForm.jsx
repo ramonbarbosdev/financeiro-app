@@ -15,10 +15,13 @@ const GenericoMestreForm = ({ nm_sequencia, fields, onEdit, onSave, onShow, fiel
 
     const carregarDados = async () => {
         const data = await onEdit();
-        if (data) {
+        if (data)
+        {
             setFormData(data);
-            setItens(data.itens || []); // Carrega os itens se existirem
-        } else {
+            setItens(data.itenslancamento || []); // Carrega os itens se existirem
+        }
+        else
+        {
             onShow();
             carregarSequencia(nm_sequencia);
             const initialData = {};
@@ -57,7 +60,7 @@ const GenericoMestreForm = ({ nm_sequencia, fields, onEdit, onSave, onShow, fiel
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const dataToSave = { ...formData, itens }; // Inclui os itens no objeto a ser salvo
+        const dataToSave = { ...formData, "itenslancamento": itens }; // Inclui os itens no objeto a ser salvo
         await onSave(dataToSave);
     };
 
